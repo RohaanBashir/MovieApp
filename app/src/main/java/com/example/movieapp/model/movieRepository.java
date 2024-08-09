@@ -27,7 +27,7 @@ public class movieRepository {
     public MutableLiveData<ArrayList<Movie>> GetPopularMovies(){
 
         movieService movie = retrofitInstance.getRetrofit();
-        Call<Result> call = movie.getPopularMovies("962a95aaee622de3e8cd6336cebaff13");
+        Call<Result> call = movie.getPopularMovies(context.getString(R.string.apikey));
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
@@ -37,20 +37,14 @@ public class movieRepository {
                     assert result != null;
                     movies = result.getResults();
                     MoviesLiveData.setValue(movies);
-                    System.out.println("No Error");
-
-                }
-                else{
-                    System.out.println("Error");
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<Result> call, @NonNull Throwable throwable) {
-                System.out.println("Failure");
+
             }
         });
-        System.out.println("End of the call");
+
         return MoviesLiveData;
     }
 
