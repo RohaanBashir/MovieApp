@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel extends AndroidViewModel {
@@ -18,7 +19,7 @@ public class ViewModel extends AndroidViewModel {
     }
 
     //live data
-    public MutableLiveData<List<Movie>> getPopularMovies(){
+    public MutableLiveData<ArrayList<Movie>> getPopularMovies(){
         return repository.GetPopularMovies();
     }
 }

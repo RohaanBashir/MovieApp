@@ -13,7 +13,7 @@ import retrofit2.Response;
 public class movieRepository {
 
     private ArrayList<Movie> movies;
-    private MutableLiveData<List<Movie>> MoviesLiveData;
+    private MutableLiveData<ArrayList<Movie>> MoviesLiveData;
     private Context context;
 
     public movieRepository(Context context){
@@ -22,26 +22,32 @@ public class movieRepository {
         this.MoviesLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<Movie>> GetPopularMovies(){
+    public MutableLiveData<ArrayList<Movie>> GetPopularMovies(){
 
         movieService movie = retrofitInstance.getRetrofit();
-        Call<Result> call = movie.getPopularMovies(context.getString(R.string.apikey));
+        Call<Result> call = movie.getPopularMovies("962a95aaee622de3e8cd6336cebaff13");
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                Result result = response.body();
 
-                if(result != null && result.getResults() != null){
+                if(response.isSuccessful()){
+                    Result result = response.body();
                     movies = result.getResults();
                     MoviesLiveData.setValue(movies);
+                    System.out.println("No Error");
+
+                }
+                else{
+                    System.out.println("Error");
                 }
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable throwable) {
-
+                System.out.println("Failure");
             }
         });
+        System.out.println("End of the call");
         return MoviesLiveData;
     }
 
