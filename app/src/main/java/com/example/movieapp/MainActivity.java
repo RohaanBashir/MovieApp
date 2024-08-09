@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.AnimationSet;
@@ -38,17 +40,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         // Set up data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // Initialize the movie list
         movieArrayList = new ArrayList<>();
-        Movie m = new Movie();
-        m.setTitle("50 shades");
-        m.setVoteAverage(500.0);
-        movieArrayList.add(m);
 
         // Initialize the ViewModel
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
@@ -58,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = binding.recyclerview;
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
-
-        viewModel.getPopularMovies();
 
         // Observe changes in movie data
         viewModel.getPopularMovies().observe(this, new Observer<ArrayList<Movie>>() {
@@ -82,5 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false); // Stop the refresh animation
             }
         });
+
     }
+
+
 }

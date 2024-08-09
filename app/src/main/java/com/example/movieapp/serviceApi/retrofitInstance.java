@@ -6,18 +6,15 @@ import retrofit2.Retrofit;
 
 public class retrofitInstance {
 
-
-    private static movieService movieAPI = null;
+    private static Retrofit retrofit = null;
+    private static final String baseUrl = "https://api.themoviedb.org/3/";
     public static movieService getRetrofit() {
-        if(movieAPI == null){
-             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/3/").
+        if(retrofit == null){
+              retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl).
                      addConverterFactory(GsonConverterFactory.create())
                      .build();
-            movieAPI = retrofit.create(movieService.class);
         }
-
-        return movieAPI;
+        return retrofit.create(movieService.class);
     }
-
 }

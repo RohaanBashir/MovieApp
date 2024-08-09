@@ -1,5 +1,7 @@
 package com.example.movieapp.model;
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import com.example.movieapp.R;
 import com.example.movieapp.serviceApi.movieService;
@@ -28,10 +30,11 @@ public class movieRepository {
         Call<Result> call = movie.getPopularMovies("962a95aaee622de3e8cd6336cebaff13");
         call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
 
                 if(response.isSuccessful()){
                     Result result = response.body();
+                    assert result != null;
                     movies = result.getResults();
                     MoviesLiveData.setValue(movies);
                     System.out.println("No Error");
@@ -43,7 +46,7 @@ public class movieRepository {
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<Result> call, @NonNull Throwable throwable) {
                 System.out.println("Failure");
             }
         });

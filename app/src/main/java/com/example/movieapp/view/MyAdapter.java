@@ -47,8 +47,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return movies.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private MovieItemLayoutBinding movielistbinding;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final MovieItemLayoutBinding movielistbinding;
 
         public MyViewHolder(MovieItemLayoutBinding binding) {
             super(binding.getRoot());

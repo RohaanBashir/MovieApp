@@ -12,7 +12,7 @@ import java.util.List;
 public class ViewModel extends AndroidViewModel {
 
 
-    private movieRepository repository;
+    private final movieRepository repository;
     public ViewModel(@NonNull Application application) {
         super(application);
         repository = new movieRepository(application);
